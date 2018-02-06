@@ -1,10 +1,8 @@
 # README
 
-Various Machine Learning related algorithms from MIT 6.036 Intro to ML class. All code snippets are written in `Python 3` syntax.
+Various Machine Learning related algorithms from MIT 6.036 Intro to ML class. All code snippets are written in `Python3` syntax.
 
-# ALGORITHMS
-
-## Notes
+# NOTES
 
 Algorithms are listed in order of how they were introduced throughout the course. 
 
@@ -19,15 +17,17 @@ For code skeleton, the name and type are denoted with `name:Type`. `name` is a s
 
 For some terminology used in this glossary, see [definitions](#definitions) section. Words taken from the definitions section will be _italicized_. 
 
-## Table of Contents
+# TABLE OF CONTENTS
 
-- [`Perceptron`](#perceptron)
+- [`Perceptron`](#algorithms)
+	- [`Perceptron`](#perceptron)
+- [`Definitions`](#definitions)
 
-## Algorithm Skeletons
+# ALGORITHMS
 
-### `Perceptron`
+## `Perceptron`
 
-[Perceptron](https://en.wikipedia.org/wiki/Perceptron) is a _CLA_ efficient in producing _linear classifiers_.
+[Perceptron](https://en.wikipedia.org/wiki/Perceptron) is a _CLA_ efficient in producing _linear classifiers_. Extra links: [1](http://www.ciml.info/dl/v0_8/ciml-v0_8-ch03.pdf), [2](https://en.wikipedia.org/wiki/Perceptron).
 
 #### Skeleton: `Perceptron`
 
@@ -46,7 +46,6 @@ return theta, theta_0
 ```
 
 A note here is that if there was no update, one does not need to go through the outer loop again. So, there should be a check for that and stop in case no update happened. 
-Extra links: [1](http://www.ciml.info/dl/v0_8/ciml-v0_8-ch03.pdf).
 #### Variant: `Pocket Perceptron`
 
 The pocket perceptron returns the best `theta` and `theta_0` from the algorithm ran above. How it judges "best" is by the number of failures that the perceptron had while running. We use `failure_count` to identify the best _classifier_ parameters `theta` and `theta_0`. Initially, set the `failure_count` to be a really high number Here, we used `sys.maxsize`, which means we imported `sys` with `import sys`.
