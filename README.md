@@ -39,12 +39,12 @@ Assume we have `d:Integer`, the dimension of each _data point_; `Sn:List<X:Tuple
 # arbitrarily set theta and theta_0
 theta, theta_0 = [0 for i in range(d)], 0
 for i in range(T):
-  for i in range(d):
-    X, Y = Sn[i][0], Sn[i][1]
-    activation = Y * (dot_product(theta, X) + theta_0)
-    if activation <= 0:
-      theta = [theta[i] + (Y * X[i]) for i in range(d)]
-      theta_0 = theta_0 + Y
+    for i in range(d):
+        X, Y = Sn[i][0], Sn[i][1]
+        activation = Y * (dot_product(theta, X) + theta_0)
+        if activation <= 0:
+            theta = [theta[i] + (Y * X[i]) for i in range(d)]
+            theta_0 = theta_0 + Y
 return theta, theta_0
 ```
 
@@ -61,16 +61,16 @@ The pocket perceptron returns the best `theta` and `theta_0` from the algorithm 
 theta, theta_0, failure_count = [0 for i in range(d)], 0, sys.maxsize
 best = (theta, theta_0, failure_count)
 for i in range(T):
-  failure_count = 0
-  for i in range(d):
-    X, Y = Sn[i][0], Sn[i][1]
-    activation = Y * (dot_product(theta, X) + theta_0)
-    if activation <= 0:
-      failure_count += 1
-      theta = [theta[i] + (Y * X[i]) for i in range(d)]
-      theta_0 = theta_0 + Y
-  if failure_count < best[2]:
-    best = (theta, theta_0, failure_count)
+    failure_count = 0
+    for i in range(d):
+        X, Y = Sn[i][0], Sn[i][1]
+        activation = Y * (dot_product(theta, X) + theta_0)
+        if activation <= 0:
+            failure_count += 1
+            theta = [theta[i] + (Y * X[i]) for i in range(d)]
+            theta_0 = theta_0 + Y
+    if failure_count < best[2]:
+        best = (theta, theta_0, failure_count)
 return best[0], best[1]
 ```
 
@@ -83,18 +83,18 @@ The voted perceptron returns the best `theta` and `theta_0` from the algorithm r
 theta, theta_0, survival_count = [0 for i in range(d)], 0, 0
 best = (theta, theta_0, survival_count)
 for i in range(T):
-  survival_count = 0
-  for i in range(d):
-    X, Y = Sn[i][0], Sn[i][1]
-    activation = Y * (dot_product(theta, X) + theta_0)
-    if activation <= 0:
-      theta = [theta[i] + (Y * X[i]) for i in range(d)]
-      theta_0 = theta_0 + Y
-      if survival_count > best[2]:
-        best = (theta, theta_0, survival_count)
-      survival_count = 0
-    else:
-      survival_count += 1
+    survival_count = 0
+    for i in range(d):
+        X, Y = Sn[i][0], Sn[i][1]
+        activation = Y * (dot_product(theta, X) + theta_0)
+        if activation <= 0:
+            theta = [theta[i] + (Y * X[i]) for i in range(d)]
+            theta_0 = theta_0 + Y
+            if survival_count > best[2]:
+                best = (theta, theta_0, survival_count)
+            survival_count = 0
+        else:
+            survival_count += 1
 return best[0], best[1]
 ```
 
