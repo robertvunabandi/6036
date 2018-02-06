@@ -19,9 +19,9 @@ For some terminology used in this glossary, see [definitions](#definitions) sect
 
 # TABLE OF CONTENTS
 
-- [`Perceptron`](#algorithms)
+- [`ALGORITHMS`](#algorithms)
 	- [`Perceptron`](#perceptron)
-- [`Definitions`](#definitions)
+- [`DEFINITIONS`](#definitions)
 
 # ALGORITHMS
 
