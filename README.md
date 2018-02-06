@@ -34,14 +34,14 @@ For some terminology used in this glossary, see [definitions](#definitions) sect
 #### Skeleton: `Perceptron`
 
 Assume we have `d:Integer`, the dimension of each _data point_; `Sn:List<X:Tuple>`, the _data set_ containing each data point (which is denoted by `X:Tuple(List<Float>,Integer)`, a tuple containing an list of numbers (the features of X) and its nature (what the classifier should output)); and `T:Integer` the number of times we run through the algorithm. We also assume that we have a function `dot_product(X,Y)` that computes the dot product of two vectors. 
-	
+
 ```python
 # arbitrarily set theta and theta_0
 theta, theta_0 = [0 for i in range(d)], 0
 for i in range(T):
 	for i in range(d):
 		X, Y = Sn[i][0], Sn[i][1]
-		activation = Y * (dotProduct(theta, X) + theta_0)
+		activation = Y * (dot_product(theta, X) + theta_0)
 		if activation <= 0:
 			theta = [theta[i] + (Y * X[i]) for i in range(d)]
 			theta_0 = theta_0 + Y
@@ -64,7 +64,7 @@ for i in range(T):
 	failure_count = 0
 	for i in range(d):
 		X, Y = Sn[i][0], Sn[i][1]
-		activation = Y * (dotProduct(theta, X) + theta_0)
+		activation = Y * (dot_product(theta, X) + theta_0)
 		if activation <= 0:
 			failure_count += 1
 			theta = [theta[i] + (Y * X[i]) for i in range(d)]
@@ -86,7 +86,7 @@ for i in range(T):
 	survival_count = 0
 	for i in range(d):
 		X, Y = Sn[i][0], Sn[i][1]
-		activation = Y * (dotProduct(theta, X) + theta_0)
+		activation = Y * (dot_product(theta, X) + theta_0)
 		if activation <= 0:
 			theta = [theta[i] + (Y * X[i]) for i in range(d)]
 			theta_0 = theta_0 + Y
