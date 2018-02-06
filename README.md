@@ -29,6 +29,8 @@ For some terminology used in this glossary, see [definitions](#definitions) sect
 
 [Perceptron](https://en.wikipedia.org/wiki/Perceptron) is a _CLA_ efficient in producing _linear classifiers_. Extra links: [1](http://www.ciml.info/dl/v0_8/ciml-v0_8-ch03.pdf), [2](https://en.wikipedia.org/wiki/Perceptron).
 
+[:small_red_triangle: Back to Table of Contents](#table-of-contents)
+
 #### Skeleton: `Perceptron`
 
 Assume we have `d:Integer`, the dimension of each _data point_; `Sn:List<X:Tuple>`, the _data set_ containing each data point (which is denoted by `X:Tuple(List<Float>,Integer)`, a tuple containing an list of numbers (the features of X) and its nature (what the classifier should output)); and `T:Integer` the number of times we run through the algorithm.
