@@ -33,21 +33,25 @@ For some terminology used in this glossary, see [definitions](#definitions) sect
 
 #### Skeleton: `Perceptron`
 
-Assume we have `d:Integer`, the dimension of each _data point_; `Sn:List<X:Tuple>`, the _data set_ containing each data point (which is denoted by `X:Tuple(List<Float>,Integer)`, a tuple containing an list of numbers (the features of X) and its nature (what the classifier should output)); and `T:Integer` the number of times we run through the algorithm.
+Assume we have `d:Integer`, the dimension of each _data point_; `Sn:List<X:Tuple>`, the _data set_ containing each data point (which is denoted by `X:Tuple(List<Float>,Integer)`, a tuple containing an list of numbers (the features of X) and its nature (what the classifier should output)); and `T:Integer` the number of times we run through the algorithm. We also assume that we have a function `dot_product(X,Y)` that computes the dot product of two vectors. 
+	
 ```python
 # arbitrarily set theta and theta_0
 theta, theta_0 = [0 for i in range(d)], 0
 for i in range(T):
 	for i in range(d):
 		X, Y = Sn[i][0], Sn[i][1]
-		condition = Y * (transpose(theta) * X + theta_0) <= 0
-		if condition:
-			theta = theta + Y * X
+		activation = Y * (dotProduct(theta, X) + theta_0)
+		if activation <= 0:
+			theta = [theta[i] + (Y * X[i]) for i in range(d)]
 			theta_0 = theta_0 + Y
 return theta, theta_0
 ```
 
-A note here is that if there was no update, one does not need to go through the outer loop again. So, there should be a check for that and stop in case no update happened. 
+**Notes**: 
+- If there was no update during one of the outer loop iteration, one does not need to go through it again. So, there should be a check for that and stop in case no update happened. 
+- To prevent negative various effects from happening, it's beneficial to shuffle the _data set_ before each outer loop iteration. This will lead to a faster convergence. 
+
 #### Variant: `Pocket Perceptron`
 
 The pocket perceptron returns the best `theta` and `theta_0` from the algorithm ran above. How it judges "best" is by the number of failures that the perceptron had while running. We use `failure_count` to identify the best _classifier_ parameters `theta` and `theta_0`. Initially, set the `failure_count` to be a really high number Here, we used `sys.maxsize`, which means we imported `sys` with `import sys`.
@@ -60,10 +64,10 @@ for i in range(T):
 	failure_count = 0
 	for i in range(d):
 		X, Y = Sn[i][0], Sn[i][1]
-		condition = Y * (transpose(theta) * X + theta_0) <= 0
-		if condition:
+		activation = Y * (dotProduct(theta, X) + theta_0)
+		if activation <= 0:
 			failure_count += 1
-			theta = theta + Y * X
+			theta = [theta[i] + (Y * X[i]) for i in range(d)]
 			theta_0 = theta_0 + Y
 	if failure_count < best[2]:
 		best = (theta, theta_0, failure_count)
@@ -80,19 +84,17 @@ theta, theta_0, survival_count = [0 for i in range(d)], 0, 0
 best = (theta, theta_0, survival_count)
 for i in range(T):
 	survival_count = 0
-	has_failed = False
 	for i in range(d):
 		X, Y = Sn[i][0], Sn[i][1]
-		condition = Y * (transpose(theta) * X + theta_0) <= 0
-		if condition:
-			failure_count += 1
-			theta = theta + Y * X
+		activation = Y * (dotProduct(theta, X) + theta_0)
+		if activation <= 0:
+			theta = [theta[i] + (Y * X[i]) for i in range(d)]
 			theta_0 = theta_0 + Y
-			has_failed = True
-		elif not has_failed:
+			if survival_count > best[2]:
+				best = (theta, theta_0, survival_count)
+			survival_count = 0
+		else:
 			survival_count += 1
-	if survival_count > best[2]:
-		best = (theta, theta_0, survival_count)
 return best[0], best[1]
 ```
 
@@ -112,7 +114,7 @@ The average perceptron returns the average of all the `theta` and `theta_0` from
 - Data point: A piece of information taken from a _data set_.
 - Data set: Data collected / aggregated with the purpose of running "machine learning" on it. One of such purposes would be to classify each data point in the data set using a _classifier_. 
 - Feature map: A function `phi: X -> R^d` that maps a piece of information (item to be studied) `X` to a `d`-dimensional _data point_, thus extracting the "features" of `X`. 
-- `onefxn`: This is a function `f: Boolean -> {1, 0}` that outputs 1 if the boolean given is true and outputs zero if the boolean given is false.
+- `onefxn`: This is a function `f: Boolean -> {1, 0}` that outputs 1 if the boolean given is true and outputs zero if the boolean given is false. This is called [Kronecker's delta function](https://en.wikipedia.org/wiki/Kronecker_delta).
 - Testing error: Given a _data set_ `S_n` containing pairs `(x_i, y_i)` for `i = 1,...,n` and assuming we have `k` extra data set not used for _training error_, the testing error is a function defined as `epsilon(h) = 1/k * sum(i = k to n + k, onefxn(h(x_i) == y_i))`. See definition of `onefxn` for more info.
 - Training error: Given a _data set_ `S_n` containing pairs `(x_i, y_i)` for `i = 1,...,n`, the testing error is a function defined as `epsilon_n(h) = 1/n * sum(i = 1 to n, onefxn(h(x_i) == y_i))`. See definition of `onefxn` for more info.
 - `transpose`: see [Wikipedia](https://en.wikipedia.org/wiki/Transpose) definition.
