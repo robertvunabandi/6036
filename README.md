@@ -100,7 +100,7 @@ The average perceptron returns the average of all the `theta` and `theta_0` from
 
 **TODO: Add snippet for Average Perceptron. _I am actually not sure how this one works._**
 
-[Back to Table of Contents](#table-of-contents)
+[:small_red_triangle: Back to Table of Contents](#table-of-contents)
 
 # DEFINITIONS
 
@@ -115,3 +115,4 @@ The average perceptron returns the average of all the `theta` and `theta_0` from
 - Training error: Given a _data set_ `S_n` containing pairs `(x_i, y_i)` for `i = 1,...,n`, the testing error is a function defined as `epsilon_n(h) = 1/n * sum(i = 1 to n, onefxn(h(x_i) == y_i))`. See definition of `onefxn` for more info.
 - `transpose`: see [Wikipedia](https://en.wikipedia.org/wiki/Transpose) definition.
 
+[:small_red_triangle: Back to Table of Contents](#table-of-contents)
