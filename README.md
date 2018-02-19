@@ -6,7 +6,7 @@ Various Machine Learning related algorithms from MIT 6.036 Intro to ML class. Al
 
 Algorithms are listed in order of how they were introduced throughout the course. 
 
-Remember that every vector in 6.036 are considered to be column vector. For that reason, to perform a [dot product](https://en.wikipedia.org/wiki/Dot_product) on two vectors, one has to _transpose_ one of them. I.e., if `X` and `Y` are `d`-dimensional vectors, their dot product will be written `transpose(X) * Y` or `transpose(Y) * X`.
+Remember that every vector in 6.036 are considered to be column vector. For that reason, to perform a [dot product](https://en.wikipedia.org/wiki/Dot_product) on two vectors, one has to _transpose_ one of them.
 
 For code skeleton, the name and type are denoted with `name:Type`. `name` is a string, and `Type` is the type, which can be any of the following:
 - `Integer`: an natural number.
@@ -27,7 +27,9 @@ For some of the terminology used here, see [definitions](#definitions) section. 
 
 ## `Perceptron`
 
-[Perceptron](https://en.wikipedia.org/wiki/Perceptron) is a _CLA_ efficient in producing _linear classifiers_. Extra links: [1](http://www.ciml.info/dl/v0_8/ciml-v0_8-ch03.pdf), [2](https://en.wikipedia.org/wiki/Perceptron). The details for the method parameters are:
+[Perceptron](https://en.wikipedia.org/wiki/Perceptron) is a _CLA_ efficient in producing _linear classifiers_.  
+Extra links about Perpectron: [1](http://www.ciml.info/dl/v0_8/ciml-v0_8-ch03.pdf), [2](https://en.wikipedia.org/wiki/Perceptron).  
+The details for the method parameters for the following snippets are:
 ```
 both arguments are 2-dimensional numpy arrays.
 data_set.shape = (d, n)
