@@ -1,6 +1,6 @@
 # README
 
-Various Machine Learning related algorithms from MIT 6.036 Intro to ML class. All code snippets are written in `Python3` syntax.
+Various Machine Learning related algorithms from MIT 6.036 Intro to ML class. All code snippets are written in `Python3` syntax assuming [`numpy`](http://www.numpy.org/) is installed.
 
 # NOTES
 
@@ -15,7 +15,7 @@ For code skeleton, the name and type are denoted with `name:Type`. `name` is a s
 - `List`: a python list. It's content is represented within `<...>`. The number of items inside can be anything.
 - `Tuple`: a python tuple. Its content is represented within `(...)`. The number of items is however many comma separated values there are.
 
-For some terminology used in this glossary, see [definitions](#definitions) section. Words taken from the definitions section will be _italicized_. 
+For some of the terminology used here, see [definitions](#definitions) section. Words taken from the definitions section will be _italicized_. 
 
 # TABLE OF CONTENTS
 
@@ -27,69 +27,71 @@ For some terminology used in this glossary, see [definitions](#definitions) sect
 
 ## `Perceptron`
 
-[Perceptron](https://en.wikipedia.org/wiki/Perceptron) is a _CLA_ efficient in producing _linear classifiers_. Extra links: [1](http://www.ciml.info/dl/v0_8/ciml-v0_8-ch03.pdf), [2](https://en.wikipedia.org/wiki/Perceptron).
+[Perceptron](https://en.wikipedia.org/wiki/Perceptron) is a _CLA_ efficient in producing _linear classifiers_. Extra links: [1](http://www.ciml.info/dl/v0_8/ciml-v0_8-ch03.pdf), [2](https://en.wikipedia.org/wiki/Perceptron). The details for the method parameters are:
+```
+both arguments are 2-dimensional numpy arrays.
+data_set.shape = (d, n)
+labels.shape = (1, n)
+```
 
 [:small_red_triangle: Back to Table of Contents](#table-of-contents)
 
-#### Skeleton: `Perceptron`
-
-Assume we have `d:Integer`, the dimension of each _data point_; `Sn:List<X:Tuple>`, the _data set_ containing each data point (which is denoted by `X:Tuple(List<Float>,Integer)`, a tuple containing an list of numbers (the features of X) and its nature (what the classifier should output)); and `T:Integer` the number of times we run through the algorithm. We also assume that we have a function `dot_product(X,Y)` that computes the dot product of two vectors. 
+#### Skeleton: `(Vanilla) Perceptron(data_set, labels)`
 
 ```python
-# arbitrarily set theta and theta_0
-theta, theta_0 = [0 for i in range(d)], 0
-for i in range(T):
-    for i in range(d):
-        X, Y = Sn[i][0], Sn[i][1]
-        activation = Y * (dot_product(theta, X) + theta_0)
-        if activation <= 0:
-            theta = [theta[i] + (Y * X[i]) for i in range(d)]
-            theta_0 = theta_0 + Y
+d, n = data_set.shape
+theta, theta_0 = np.zeros((d, 1)), np.zeros((1,1))
+for trial in range(T):
+    for index in range(n):
+        data_point, label = data_set[:, index:index+1], labels[:,index:index+1]
+        activation = label * np.sign(np.dot(np.transpose(theta), data_point) + theta_0)
+        if activation <= 0.0:
+            theta = theta + (data_point * label)
+            theta_0 = theta_0 + label
 return theta, theta_0
 ```
 
 **Notes**: 
 - If there was no update during one of the outer loop iteration, one does not need to go through it again. So, there should be a check for that and stop in case no update happened. 
-- To prevent negative various effects from happening, it's beneficial to shuffle the _data set_ before each outer loop iteration. This will lead to a faster convergence. 
+- To prevent various negative effects from happening, it's beneficial to shuffle the _data set_ before each outer loop iteration. That will often lead to a faster convergence. 
 
-#### Variant: `Pocket Perceptron`
+#### Variant: `Pocket Perceptron(data_set, labels)`
 
-The pocket perceptron returns the best `theta` and `theta_0` from the algorithm ran above. How it judges "best" is by the number of failures that the perceptron had while running. We use `failure_count` to identify the best _classifier_ parameters `theta` and `theta_0`. Initially, set the `failure_count` to be a really high number Here, we used `sys.maxsize`, which means we imported `sys` with `import sys`.
+The pocket perceptron returns the best `theta` and `theta_0` from the algorithm ran above. The "best" parameters are the ones that yield the least failures. We use `failure_count` to identify the best _classifier_ parameters `theta` and `theta_0`. Initially, set the `failure_count` to be a really high number Here, we used `sys.maxsize`.
 
 ```python
-# arbitrarily set theta and theta_0
-theta, theta_0, failure_count = [0 for i in range(d)], 0, sys.maxsize
+d, n = data_set.shape
+theta, theta_0, failure_count = np.zeros((d, 1)), np.zeros((1,1)), sys.maxsize
 best = (theta, theta_0, failure_count)
-for i in range(T):
+for trial in range(T):
     failure_count = 0
-    for i in range(d):
-        X, Y = Sn[i][0], Sn[i][1]
-        activation = Y * (dot_product(theta, X) + theta_0)
-        if activation <= 0:
+    for index in range(n):
+        data_point, label = data_set[:, index:index+1], labels[:,index:index+1]
+        activation = label * np.sign(np.dot(np.transpose(theta), data_point) + theta_0)
+        if activation <= 0.0:
             failure_count += 1
-            theta = [theta[i] + (Y * X[i]) for i in range(d)]
-            theta_0 = theta_0 + Y
+            theta = theta + (data_point * label)
+            theta_0 = theta_0 + label
     if failure_count < best[2]:
         best = (theta, theta_0, failure_count)
 return best[0], best[1]
 ```
 
-#### Variant: `Voted Perceptron`
+#### Variant: `Voted Perceptron(data_set, labels)`
 
-The voted perceptron returns the best `theta` and `theta_0` from the algorithm ran above. How it judges "best" is by how long the classifier survives before needing to change. We use `survival_count` to identify the best _classifier_ parameters `theta` and `theta_0`. Initially, set the `survival_count` to 0 to start with, meaning it has not survived anything.
+The voted perceptron returns the best `theta` and `theta_0` from the algorithm ran above. It judges "best" by how long the classifier survives before needing to change. We use `survival_count` to identify the best _classifier_ parameters `theta` and `theta_0`. Initially, set the `survival_count` to 0 to start with, meaning it has not survived anything.
 
 ```python
-# arbitrarily set theta and theta_0
-theta, theta_0, survival_count = [0 for i in range(d)], 0, 0
+d, n = data_set.shape
+theta, theta_0, survival_count = np.zeros((d, 1)), np.zeros((1,1)), 0
 best = (theta, theta_0, survival_count)
-for i in range(T):
-    survival_count = 0
-    for i in range(d):
-        X, Y = Sn[i][0], Sn[i][1]
-        activation = Y * (dot_product(theta, X) + theta_0)
-        if activation <= 0:
-            theta = [theta[i] + (Y * X[i]) for i in range(d)]
-            theta_0 = theta_0 + Y
+for trial in range(T):
+    for index in range(n):
+        data_point, label = data_set[:, index:index+1], labels[:,index:index+1]
+        activation = label * np.sign(np.dot(np.transpose(theta), data_point) + theta_0)
+        if activation <= 0.0:
+            theta = theta + (data_point * label)
+            theta_0 = theta_0 + label
             if survival_count > best[2]:
                 best = (theta, theta_0, survival_count)
             survival_count = 0
@@ -98,11 +100,29 @@ for i in range(T):
 return best[0], best[1]
 ```
 
-#### Variant: `Average Perceptron`
+#### Variant: `Average Perceptron(data_set, labels)`
 
-The average perceptron returns the average of all the `theta` and `theta_0` from the algorithm ran above. 
+The average perceptron returns the average of all the `theta` and `theta_0` from the algorithm ran above.
 
-**TODO: Add snippet for Average Perceptron. _I am actually not sure how this one works._**
+```python
+d, n = data_set.shape
+theta, theta_0, coeff = np.zeros((d, 1)), np.zeros((1,1)), 1
+thetas, theta_0s = np.zeros((d, 1)), np.zeros((1,1))
+for trial in range(T):
+    for index in range(n):
+        data_point, label = data_set[:, index:index+1], labels[:,index:index+1]
+        activation = label * np.sign(np.dot(np.transpose(theta), data_point) + theta_0)
+        if activation <= 0.0:
+            theta = theta + (data_point * label)
+            theta_0 = theta_0 + label
+            thetas = thetas + (coeff * data_point * label)
+            theta_0s = theta_0s + (coeff * label)
+        coeff = coeff - (1/(n*T))
+return thetas, theta_0s
+```
+
+**Notes**: 
+- One may need to start recording values to average only after a setup time when `theta` and `theta_0` are more or less semi-efficient. 
 
 [:small_red_triangle: Back to Table of Contents](#table-of-contents)
 
