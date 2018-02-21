@@ -30,6 +30,8 @@ For some of the terminology used here, see [definitions](#definitions) section. 
 
 The Pegasos Algorithm is an implementation of a [Support Vector Machine (SVM)](https://en.wikipedia.org/wiki/Support_vector_machine). Thus, Pegasos is a _CLA_ used to produce a _linear classifier_ with parameter vector `th` and scalar `th0` such that the _average Hinge Loss_ is minimized on the training set and the margin boundaries are pushed apart by reducing the norm of `th`. We use margin function `margin(th, th0, i) = label[i] * (transpose(th) @ train_data[i] + th0) / norm(th)`.  
 
+[:small_red_triangle: Back to Table of Contents](#table-of-contents)
+
 #### Skeleton: `Pegasos(data_set, labels, r)`
 
 ```
