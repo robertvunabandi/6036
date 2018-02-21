@@ -20,10 +20,17 @@ For some of the terminology used here, see [definitions](#definitions) section. 
 # TABLE OF CONTENTS
 
 - [`ALGORITHMS`](#algorithms)
+    - [`Pegasos`](#pegasos)
 	- [`Perceptron`](#perceptron)
 - [`DEFINITIONS`](#definitions)
 
 # ALGORITHMS
+
+## `Pegasos`
+
+The Pegasos Algorithm is an implementation of a [Support Vector Machine (SVM)](https://en.wikipedia.org/wiki/Support_vector_machine). Thus, Pegasos is a _CLA_ used to produce a _linear classifier_ with parameter vector `th` and scalar `th0` such that the _average Hinge Loss_ is minimized on the training set and the margin boundaries are pushed apart by reducing the norm of `th`. We use margin function `margin(th, th0, i) = label[i] * (transpose(th) @ train_data[i] + th0) / norm(th)`.  
+
+TODO: Do Skeleton for this.
 
 ## `Perceptron`
 
@@ -130,6 +137,7 @@ return thetas, theta_0s
 
 # DEFINITIONS
 
+- Average Hinge Loss: Given a margin function `margin( . , . )` (2 parameters) and parameter vector `th` and scalar `th0`, the average Hinge loss is defined as `Loss_h(margin(th, th0)/desired_margin) = max(0, 1 - margin(th, th0)/desired_margin)`. So, it gives a non-negative loss when the margin function is smaller than the desired margin.
 - Classifier: A function `h: R^d -> {+1,-1}` that maps a `d`-dimensional _data point_ to either `1` or `-1`. 
 	- Linear Classifier: A _classifier_ for which the mapping rule is defined as `h(x; theta, theta_0) = transpose(x) * theta + theta_0` where `x, theta` are `d`-dimensional and `theta_0` is one-dimensional. 
 - Classifier Learning Algorithm (CLA): An algorithm that takes in a _data set_ and outputs a _classifier_ that is good at classifying data taken from that _data set_. I.e., a CLA often outputs a _classifier_ that minimizes the _testing error_ amongst a set of possible _classifiers_. [More on Leaning Algorithms](https://www.igi-global.com/dictionary/learning-algorithm/16821).
