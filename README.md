@@ -30,7 +30,17 @@ For some of the terminology used here, see [definitions](#definitions) section. 
 
 The Pegasos Algorithm is an implementation of a [Support Vector Machine (SVM)](https://en.wikipedia.org/wiki/Support_vector_machine). Thus, Pegasos is a _CLA_ used to produce a _linear classifier_ with parameter vector `th` and scalar `th0` such that the _average Hinge Loss_ is minimized on the training set and the margin boundaries are pushed apart by reducing the norm of `th`. We use margin function `margin(th, th0, i) = label[i] * (transpose(th) @ train_data[i] + th0) / norm(th)`.  
 
+#### Skeleton: `Pegasos(data_set, labels, r)`
+
+```
+r is the regularization parameter (usually lambda).
+data_set.shape = (d, n)
+labels.shape = (1, n)
+```
 TODO: Do Skeleton for this.
+
+
+[:small_red_triangle: Back to Table of Contents](#table-of-contents)
 
 ## `Perceptron`
 
@@ -38,7 +48,7 @@ TODO: Do Skeleton for this.
 Extra links about Perpectron: [1](http://www.ciml.info/dl/v0_8/ciml-v0_8-ch03.pdf), [2](https://en.wikipedia.org/wiki/Perceptron).  
 The details for the method parameters for the following snippets are:
 ```
-both arguments are 2-dimensional numpy arrays.
+# both arguments are 2-dimensional numpy arrays.
 data_set.shape = (d, n)
 labels.shape = (1, n)
 ```
