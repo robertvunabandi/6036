@@ -57,7 +57,7 @@ labels.shape = (1, n)
 
 [:small_red_triangle: Back to Table of Contents](#table-of-contents)
 
-#### Skeleton: `(Vanilla) Perceptron(data_set, labels)`
+#### Regular: `(Vanilla) Perceptron(data_set, labels)`
 
 ```python
 d, n = data_set.shape
@@ -149,16 +149,16 @@ return thetas, theta_0s
 
 # DEFINITIONS
 
-- Average Hinge Loss: Given a margin function `margin( . , . )` (2 parameters) and parameter vector `th` and scalar `th0`, the average Hinge loss is defined as `Loss_h(margin(th, th0)/desired_margin) = max(0, 1 - margin(th, th0)/desired_margin)`. So, it gives a non-negative loss when the margin function is smaller than the desired margin.
-- Classifier: A function `h: R^d -> {+1,-1}` that maps a `d`-dimensional _data point_ to either `1` or `-1`. 
-	- Linear Classifier: A _classifier_ for which the mapping rule is defined as `h(x; theta, theta_0) = transpose(x) * theta + theta_0` where `x, theta` are `d`-dimensional and `theta_0` is one-dimensional. 
-- Classifier Learning Algorithm (CLA): An algorithm that takes in a _data set_ and outputs a _classifier_ that is good at classifying data taken from that _data set_. I.e., a CLA often outputs a _classifier_ that minimizes the _testing error_ amongst a set of possible _classifiers_. [More on Leaning Algorithms](https://www.igi-global.com/dictionary/learning-algorithm/16821).
-- Data point: A piece of information taken from a _data set_.
-- Data set: Data collected / aggregated with the purpose of running "machine learning" on it. One of such purposes would be to classify each data point in the data set using a _classifier_. 
-- Feature map: A function `phi: X -> R^d` that maps a piece of information (item to be studied) `X` to a `d`-dimensional _data point_, thus extracting the "features" of `X`. 
-- `onefxn`: This is a function `f: Boolean -> {1, 0}` that outputs 1 if the boolean given is true and outputs zero if the boolean given is false. This is called [Kronecker's delta function](https://en.wikipedia.org/wiki/Kronecker_delta).
-- Testing error: Given a _data set_ `S_n` containing pairs `(x_i, y_i)` for `i = 1,...,n` and assuming we have `k` extra data set not used for _training error_, the testing error is a function defined as `epsilon(h) = 1/k * sum(i = k to n + k, onefxn(h(x_i) == y_i))`. See definition of `onefxn` for more info.
-- Training error: Given a _data set_ `S_n` containing pairs `(x_i, y_i)` for `i = 1,...,n`, the testing error is a function defined as `epsilon_n(h) = 1/n * sum(i = 1 to n, onefxn(h(x_i) == y_i))`. See definition of `onefxn` for more info.
-- `transpose`: see [Wikipedia](https://en.wikipedia.org/wiki/Transpose) definition.
+- **Average Hinge Loss:** Given a margin function `margin( . , . )` (2 parameters) and parameter vector `th` and scalar `th0`, the average Hinge loss is defined as `Loss_h(margin(th, th0)/desired_margin) = max(0, 1 - margin(th, th0)/desired_margin)`. So, it gives a non-negative loss when the margin function is smaller than the desired margin.
+- **Classifier:** A function `h: R^d -> {+1,-1}` that maps a `d`-dimensional _data point_ to either `1` or `-1`. 
+	- **Linear Classifier:** A _classifier_ for which the mapping rule is defined as `h(x; theta, theta_0) = transpose(x) * theta + theta_0` where `x, theta` are `d`-dimensional and `theta_0` is one-dimensional. 
+- **Classifier Learning Algorithm (CLA):** An algorithm that takes in a _data set_ and outputs a _classifier_ that is good at classifying data taken from that _data set_. I.e., a CLA often outputs a _classifier_ that minimizes the _testing error_ amongst a set of possible _classifiers_. [More on Leaning Algorithms](https://www.igi-global.com/dictionary/learning-algorithm/16821).
+- **Data point:** A piece of information taken from a _data set_.
+- **Data set:** Data collected / aggregated with the purpose of running "machine learning" on it. One of such purposes would be to classify each data point in the data set using a _classifier_. 
+- **Feature map:** A function `phi: X -> R^d` that maps a piece of information (item to be studied) `X` to a `d`-dimensional _data point_, thus extracting the "features" of `X`. 
+- **`onefxn`:** This is a function `f: Boolean -> {1, 0}` that outputs 1 if the boolean given is true and outputs zero if the boolean given is false. This is called [Kronecker's delta function](https://en.wikipedia.org/wiki/Kronecker_delta).
+- **Testing error:** Given a _data set_ `S_n` containing pairs `(x_i, y_i)` for `i = 1,...,n` and assuming we have `k` extra data set not used for _training error_, the testing error is a function defined as `epsilon(h) = 1/k * sum(i = k to n + k, onefxn(h(x_i) == y_i))`. See definition of `onefxn` for more info.
+- **Training error:** Given a _data set_ `S_n` containing pairs `(x_i, y_i)` for `i = 1,...,n`, the testing error is a function defined as `epsilon_n(h) = 1/n * sum(i = 1 to n, onefxn(h(x_i) == y_i))`. See definition of `onefxn` for more info.
+- **`transpose`:** see [Wikipedia](https://en.wikipedia.org/wiki/Transpose) definition.
 
 [:small_red_triangle: Back to Table of Contents](#table-of-contents)
