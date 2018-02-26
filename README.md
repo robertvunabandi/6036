@@ -123,7 +123,7 @@ return best[0], best[1]
 
 #### Variant: `Average Perceptron(data_set, labels)`
 
-The average perceptron returns the average of all the `theta` and `theta_0` from the algorithm ran above.
+The average perceptron returns the average of all the `theta` and `theta_0` from the algorithm ran above. The following implementation is a more efficient way of getting the average perceptron. If it was not efficient, one would keep adding `theta` to `thetas` for every single iteration regardless of getting an activation that is less than or equal to 0. Then, during the return, one returns `thetas / (n * T), theta_0s / (n * T)`.
 
 ```python
 d, n = data_set.shape
