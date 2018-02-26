@@ -1,6 +1,6 @@
 # README
 
-Various Machine Learning related algorithms from MIT 6.036 Intro to ML class. All code snippets are written in `Python3` syntax assuming [`numpy`](http://www.numpy.org/) is installed as **`np`**.
+Various Machine Learning related algorithms from MIT 6.036 Intro to ML class. All code snippets are written in `Python3` syntax assuming [`numpy`](http://www.numpy.org/) is installed and imported as **`np`**.
 
 # NOTES
 
