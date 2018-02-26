@@ -57,7 +57,7 @@ labels.shape = (1, n)
 
 [:small_red_triangle: Back to Table of Contents](#table-of-contents)
 
-#### Regular: `(Vanilla) Perceptron(data_set, labels)`
+#### Skeleton: `(Vanilla) Perceptron(data_set, labels)`
 
 ```python
 d, n = data_set.shape
