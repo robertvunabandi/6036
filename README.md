@@ -2,6 +2,10 @@
 
 Various Machine Learning related algorithms from MIT 6.036 Intro to ML class. All code snippets are written in `Python3` syntax assuming [`numpy`](http://www.numpy.org/) is installed and imported as **`np`**.
 
+# UPDATE
+
+As of Friday, April 6th, 2018 at 2:15 AM, I have stopped updating this github. The reason being that implementing more advanced algorithms, such as Gradient Descent or Neural Network Gradient descent, cannot be done with short, simple code snippets. These are systems that require a whole class of objects, operations, and optimizations.
+
 # NOTES
 
 Algorithms are listed in order of how they were introduced throughout the course. 
